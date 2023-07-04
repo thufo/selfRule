@@ -76,17 +76,20 @@ function activate(context) {
 					}
 					text = text.replace(regex, (...args) => {
 						let replaced = replacement;
+						// First, replace all placeholders that are defined in replacementMap
 						Object.entries(replacementMap).forEach(([replaceId, item]) => {
 							let replaceData = args[parseInt(replaceId)];
 							if (item.hasOwnProperty(replaceData)) {
 								replaced = replaced.replace(new RegExp(`\\$${replaceId}`, 'g'), item[replaceData].value);
+							} else {
+								replaced = replaced.replace(new RegExp(`\\$${replaceId}`, 'g'), replaceData);
 							}
-							replaced = replaced.replace(new RegExp(`\\$${replaceId}`, 'g'), replaceData);
 						});
+						// Then, replace all remaining placeholders with their corresponding values from args
+						replaced = replaced.replace(/\$(\d+)/g, (match, p1) => args[parseInt(p1)]);
 						return replaced;
 					});
 				});
-				
 
 				const all = new vscode.Range(
 					document.positionAt(0),

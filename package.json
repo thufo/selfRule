@@ -1,0 +1,71 @@
+{
+	"name": "selfrule",
+	"displayName": "selfRule",
+	"description": "",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.79.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"main": "./extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.regexReplace1",
+				"title": "消息替换",
+				"category": "GOM转91M2"
+			},
+			{
+				"command": "extension.regexReplace2",
+				"title": "字符串转换2",
+				"category": "GOM转91M2"
+			}
+		],
+		"submenus": [
+			{
+				"id": "myProject/content",
+				"label": "GOM转91M2"
+			}
+		],
+		"menus": {
+			"editor/context": [
+				{
+					"submenu": "myProject/content",
+					"group": "navigation"
+				}
+			],
+			"myProject/content": [
+				{
+					"command": "extension.regexReplace1",
+					"group": "gomTo91m2"
+				},
+				{
+					"command": "extension.regexReplace2",
+					"group": "gomTo91m2"
+				}
+			]
+		}
+	},
+	"scripts": {
+		"lint": "eslint .",
+		"pretest": "npm run lint",
+		"test": "node ./test/runTest.js"
+	},
+	"devDependencies": {
+		"eslint": "^8.41.0",
+		"typescript": "^5.1.3"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/username/repo.git"
+	},
+	"dependencies": {
+		"@typescript-eslint/eslint-plugin": "^5.61.0",
+		"@typescript-eslint/parser": "^5.61.0"
+	}
+}
